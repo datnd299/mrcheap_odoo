@@ -1,0 +1,30 @@
+<odoo>
+  <!-- Kế thừa tree view Customers của Accounting và chèn cột Dư nợ -->
+  <record id="view_partner_tree_inherit_mrcheap_account" model="ir.ui.view">
+    <field name="name">res.partner.tree.inherit.mrcheap.account</field>
+    <field name="model">res.partner</field>
+    <!-- Lưu ý: external id này có thể khác nhau theo phiên bản/CE/EE.
+         Nếu hệ của bạn không có id này, xem phần B/ fallback bên dưới. -->
+    <field name="inherit_id" ref="account.view_partner_tree"/>
+    <field name="arch" type="xml">
+      <!-- chèn sau cột 'phone' (tuỳ bạn đổi vị trí) -->
+      <xpath expr="//tree/field[@name='phone']" position="after">
+        <field name="manual_debt"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- (Tuỳ chọn) Thêm vào search view trong Accounting Customers -->
+  <record id="res_partner_search_inherit_mrcheap_account" model="ir.ui.view">
+    <field name="name">res.partner.search.inherit.mrcheap.account</field>
+    <field name="model">res.partner</field>
+    <!-- id search của account -->
+    <field name="inherit_id" ref="account.view_res_partner_filter"/>
+    <field name="arch" type="xml">
+      <xpath expr="//search" position="inside">
+        <field name="manual_debt"/>
+        <filter string="Có dư nợ" name="has_debt_acc" domain="[('manual_debt','>',0)]"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
