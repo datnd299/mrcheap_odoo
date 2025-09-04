@@ -5,12 +5,12 @@ services:
     image: postgres:13
     environment:
       - POSTGRES_DB=postgres
-      - POSTGRES_USER=odoo
-      - POSTGRES_PASSWORD=odoo@20092299
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${PG_PORT}:5432"
     volumes:
-      - odoo18-db-data:/var/lib/postgresql/data
+      - ./odoo18-db-data:/var/lib/postgresql/data
     restart: unless-stopped
 
   odoo:
@@ -18,14 +18,14 @@ services:
     depends_on:
       - db
     ports:
-      - "8069:8069"
+      - "${ODOO_PORT}:8069"
     volumes:
       - ./addons:/mnt/extra-addons
       - ./etc:/etc/odoo
     environment:
-      - HOST=db
-      - USER=odoo
-      - PASSWORD=odoo@20092299
+      - HOST=${ODOO_DB_HOST}
+      - USER=${ODOO_DB_USER}
+      - PASSWORD=${ODOO_DB_PASSWORD}
     command: ["odoo", "-c", "/etc/odoo/odoo.conf"]
     restart: unless-stopped
 

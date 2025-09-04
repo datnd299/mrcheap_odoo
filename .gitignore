@@ -1,1 +1,4 @@
 .idea
+.env
+etc/odoo.conf
+odoo18-db-data
