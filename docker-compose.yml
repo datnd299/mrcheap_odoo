@@ -25,7 +25,7 @@ services:
     environment:
       - HOST=db
       - USER=odoo
-      - PASSWORD=odoo
+      - PASSWORD=odoo@20092299
     command: ["odoo", "-c", "/etc/odoo/odoo.conf"]
     restart: unless-stopped
 
