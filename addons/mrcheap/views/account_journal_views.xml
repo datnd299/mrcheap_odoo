@@ -1,0 +1,15 @@
+<odoo>
+  <record id="view_account_journal_form_inherit_webhook" model="ir.ui.view">
+    <field name="name">account.journal.form.inherit.webhook</field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="account.view_account_journal_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//sheet" position="inside">
+        <group string="Webhook Settings" invisible="type != 'bank'">
+          <field name="webhook_token"/>
+          <field name="webhook_url" widget="url" readonly="1"/>
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>
